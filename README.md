@@ -1,6 +1,6 @@
 Django Jamstack Demo
 ====================
-** Generate static resources from a Django site using django-ultracache and django-distill. Supports partial regeneration and scales to millions of objects.**
+**Generate static resources from a Django site using django-ultracache and django-distill. Supports partial regeneration and scales to millions of objects.**
 
 Usage
 -----
