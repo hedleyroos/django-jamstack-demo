@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+    nginx:
+        image: nginx:1.21.1
+        volumes:
+            - /var/tmp/jamstack:/usr/share/nginx/html
+        networks:
+            vnet:
+                ipv4_address: 192.168.18.10
+    memcached:
+        image: memcached:alpine
+        environment:
+            - MEMCACHED_MEMORY_LIMIT=32
+        networks:
+            vnet:
+                ipv4_address: 192.168.18.30
+
+    app:
+        image: django-jamstack-demo:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - MEMCACHED_HOST=memcached
+        depends_on:
+            - "memcached"
+        volumes:
+            - /var/tmp/jamstack:/var/tmp/jamstack
+        networks:
+            vnet:
+                ipv4_address: 192.168.18.40
+
+    # Baseline static resource generation
+    generate:
+        image: django-jamstack-demo:latest
+        environment:
+            - MEMCACHED_HOST=memcached
+        depends_on:
+            - "memcached"
+        volumes:
+            - /var/tmp/jamstack:/var/tmp/jamstack
+        command: bash -c "yes 'yes' | python manage.py distill-local /tmp/jamstack/ --force --collectstatic && cp -r /tmp/jamstack/* /var/tmp/jamstack"
+
+networks:
+    vnet:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 192.168.18.0/24

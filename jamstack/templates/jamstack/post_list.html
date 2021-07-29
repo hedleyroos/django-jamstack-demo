@@ -1,0 +1,9 @@
+<h1>Posts</h1>
+Generated at: {% now "jS F Y H:i:s" %}
+<ul>
+{% for post in object_list %}
+    <li><a href="{% url "post-detail" post.pk %}">{{ post.title }}</a></li>
+{% empty %}
+    <li>No posts yet.</li>
+{% endfor %}
+</ul
