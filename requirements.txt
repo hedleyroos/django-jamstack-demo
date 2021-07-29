@@ -15,4 +15,4 @@ sqlparse==0.4.1
 typing-extensions==3.10.0.0
 urllib3==1.26.6
 uWSGI==2.0.19.1
--e git+ssh://git@github.com/hedleyroos/django-distill.git@master#egg=django_distill
+-e git+https://github.com/hedleyroos/django-distill.git@master#egg=django_distill

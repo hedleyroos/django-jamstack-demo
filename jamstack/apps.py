@@ -8,5 +8,4 @@ class MicroSiteConfig(AppConfig):
     label = "jamstack"
 
     def ready(self):
-        print("READY")
-        print("URL", urls_to_distill)
+        pass

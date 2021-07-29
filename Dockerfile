@@ -2,7 +2,7 @@
 FROM python:3.7.11-buster
 WORKDIR /var/app
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y vim
+#RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y vim
 
 COPY requirements.txt /var/app/
 COPY manage.py /var/app/
@@ -12,4 +12,4 @@ COPY sample.sqlite3 /var/app/db.sqlite3
 COPY jamstack /var/app/jamstack
 
 EXPOSE 80
-CMD ["uwsgi", "--http", ":80", "--callable", "application", "--wsgi-file", "wsgi.py"]
+ENTRYPOINT sleep 1 && yes 'yes' | python manage.py distill-local /tmp/jamstack/ --force --collectstatic && cp -r /tmp/jamstack/* /var/tmp/jamstack && uwsgi --http :80 --callable application --wsgi-file wsgi.py
