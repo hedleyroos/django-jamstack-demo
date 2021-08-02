@@ -9,7 +9,7 @@ Start the containers::
 
     DOCKER_BUILDKIT=1 docker-compose up --build
 
-Visit http://http://192.168.18.10/. Open Post One and Post Two in new tabs. Note all the files are served
+Visit http://192.168.18.10/. Open Post One and Post Two in new tabs. Note all the files are served
 directly from Nginx. Make a note of the ``Generated`` values.
 
 Modify Post One::
